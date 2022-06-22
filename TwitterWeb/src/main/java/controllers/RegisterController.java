@@ -38,6 +38,7 @@ public class RegisterController extends HttpServlet {
 		
 	   try {
 	
+		   String view;
 		   User user = new User();
 		   BeanUtils.populate(user, request.getParameterMap());
 		   
@@ -49,23 +50,23 @@ public class RegisterController extends HttpServlet {
 			   manager.finalize();
 			   if(register) {
 				  System.out.println(" User saved, forwarding to ViewLoginForm");
-				  RequestDispatcher dispatcher = request.getRequestDispatcher("ViewLoginForm.jsp");
-				  dispatcher.forward(request, response); 
+				  view = "ViewLoginForm.jsp"; 
 			   }
 			   else {
 				   System.out.println(" User not registered, forwarding to ViewRegisterForm");
 				   request.setAttribute("user",user);
-				   RequestDispatcher dispatcher = request.getRequestDispatcher("ViewRegisterForm.jsp");
-				   dispatcher.forward(request, response);
+				   view = "ViewRegisterForm.jsp";
+
 			   }
 		   }
 		   else {
 			   System.out.println(" Forwarding to ViewRegisterForm");
 			   request.setAttribute("user",user);
-			   RequestDispatcher dispatcher = request.getRequestDispatcher("ViewRegisterForm.jsp");
-			   dispatcher.forward(request, response);
+			   view = "ViewRegisterForm.jsp";
 		   }
 		  
+		   RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+		   dispatcher.forward(request, response);
 			   
 	   } catch (IllegalAccessException | InvocationTargetException e) {
 			e.printStackTrace();

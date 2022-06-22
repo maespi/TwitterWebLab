@@ -5,10 +5,10 @@
 <form action="LoginController" method="POST">
 	<p>      
     <label class="w3-text-red"><b> User id </b></label>
-    <input class="w3-input w3-border w3-light-grey" type="text" name="user" value="${login.user}" required minlength="5" ></p>
+    <input class="w3-input w3-border w3-light-grey" type="text" name="user" value="${user.user}" required minlength="5" ></p>
     <p>      
     <label class="w3-text-red"><b> User Password </b></label>
-    <input class="w3-input w3-border w3-light-grey" type="text" name="user" value="${login.psw}"></p>
+    <input class="w3-input w3-border w3-light-grey" type="password" name="pwd" value="${user.pwd}"></p>
     <p>
     <input class="w3-btn w3-red" type="submit" name="sumbit" value="Submit"></p>
 </form>

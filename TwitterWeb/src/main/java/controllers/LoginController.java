@@ -13,7 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import models.Login;
+import managers.ManageUsers;
+import models.User;
 
 /**
  * Servlet implementation class LoginController
@@ -36,29 +37,39 @@ public class LoginController extends HttpServlet {
 
 		System.out.print("LoginController: ");
 		
-		Login login = new Login();
+		User user = new User();
+		ManageUsers manager = new ManageUsers();
+		String view = "ViewLoginForm.jsp";
 		
 	    try {
 			
-	    	BeanUtils.populate(login, request.getParameterMap());
-			
-	    	if (login.isComplete()) {
-		    	
-	    		System.out.println("login OK, forwarding to ViewLoginDone ");
-		    	HttpSession session = request.getSession();
-		    	session.setAttribute("user",login.getUser());
-		    	RequestDispatcher dispatcher = request.getRequestDispatcher("ViewLoginDone.jsp");
-			    dispatcher.forward(request, response);
+	    	BeanUtils.populate(user, request.getParameterMap());
+	    	
+	    	if (manager.isLoginComplete(user)) {
 			    
+			    if (manager.checkLogin(user)) {
+		    		System.out.println("Login OK, forwarding to ViewOwnTimeline. ");
+	    			HttpSession session = request.getSession();
+	    			session.setAttribute("user",user);
+			    	view = "ViewOwnTimeline.jsp";
+	    			
+	    		}
+	    		else {
+	    			System.out.println("User "+user.getUser()+" is not logged (user not found), forwarding to ViewLoginForm. ");
+				    view = "ViewLoginForm.jsp";
+	    			request.setAttribute("error", true);
+					request.setAttribute("user",user);
+				}
 		    } 
 			else {
 		     
-				System.out.println("user is not logged, forwarding to ViewLoginForm ");
-			    request.setAttribute("login",login);
-			    RequestDispatcher dispatcher = request.getRequestDispatcher("ViewLoginForm.jsp");
-			    dispatcher.forward(request, response);
+				System.out.println("Login not completed, forwarding to ViewLoginForm. ");
+				request.setAttribute("user",user);
+				view = "ViewLoginForm.jsp";
 		    	
 		    }
+	    	RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+	    	dispatcher.forward(request, response);
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			e.printStackTrace();
 		}

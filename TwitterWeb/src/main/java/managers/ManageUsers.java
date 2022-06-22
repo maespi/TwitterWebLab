@@ -3,6 +3,7 @@ package managers;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +60,11 @@ public class ManageUsers {
 	private boolean hasValue(String val) {
 		return((val != null) && (!val.equals("")));
 	}
+	
+	public boolean isLoginComplete(User user) {
+	    return(hasValue(user.getUser()) &&
+	    	   hasValue(user.getPwd()) );
+	}
 		
 	public User getUser(String name) {
 		String query = "Select usr, mail FROM users WHERE usr = ? ;";
@@ -95,6 +101,32 @@ public class ManageUsers {
 		return users;
 	}
 	
+	public Boolean checkLogin(User user) {
+		
+		String query = "SELECT usr,mail from users where usr = ? AND pwd = ?";
+		PreparedStatement statement = null;
+		boolean output = false;
+		try {
+			statement = db.prepareStatement(query);
+			statement.setString(1,user.getUser());
+			statement.setString(2,user.getPwd());
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				user.setUser(rs.getString("usr"));
+				user.setMail(rs.getString("mail"));
+				output = true;
+			} 
+			rs.close();
+			statement.close();
+		} catch (SQLIntegrityConstraintViolationException e) {
+			System.out.println(e.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return output;
+		
+	}
 	// TODO: add other methods 
 
 }
