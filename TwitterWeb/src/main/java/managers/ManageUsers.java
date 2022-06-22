@@ -1,7 +1,10 @@
 package managers;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import models.User;
 import utils.DB;
@@ -57,6 +60,40 @@ public class ManageUsers {
 		return((val != null) && (!val.equals("")));
 	}
 		
+	public User getUser(String name) {
+		String query = "Select usr, mail FROM users WHERE usr = ? ;";
+		PreparedStatement statement = null;
+		ResultSet rs = null;
+		User user = null;
+		try {
+			statement = db.prepareStatement(query);
+			statement.setString(1,name);
+			rs = statement.executeQuery();
+			if (rs.next()) {
+				user = new User();
+				user.setUser(rs.getString("usr"));
+				user.setMail(rs.getString("mail"));
+			}
+			rs.close();
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
+	
+	public List<User> getUsers(List<String> names) {
+		
+		List<User> users = new ArrayList<User>();
+		
+		for(int i=0; i<names.size(); i++) {
+			User tmp = getUser(names.get(i));
+			if(tmp.getUser().length()>0)
+				users.add(tmp);
+		}
+		return users;
+	}
 	
 	// TODO: add other methods 
 
