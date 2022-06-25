@@ -10,7 +10,7 @@
  });
  </script>
  
-<div class="container rounded border border-secondary pt-3">
+<div class="container rounded border border-secondary mt-5">
 	<h6 class="w3-opacity"> ${user.user}, what are you thinking? </h6>
 	<p id="tweetContent" contenteditable="true" class="border p-2"> </p>
 	<button id="addTweet" type="button" class="btn btn-primary bckg-primary-color mb-2 "><i class="fa fa-pencil"></i> &nbsp;Post</button> 

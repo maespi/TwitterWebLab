@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div class="container rounded border border-secondary">
+<div class="container rounded border border-secondary mt-5">
   <h4>My Profile</h4>
   <p><img src="imgs/army-helicopter.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
   <hr>

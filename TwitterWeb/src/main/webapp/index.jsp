@@ -77,7 +77,7 @@ $(document).ready(function(){
  	</div>
  	<!-- End Navigation -->
 	
-	<div class="row mt-5 mx-1" >
+	<div class="row mx-1" >
  	<!-- Left Column -->
  	<div class="col">
 		<div id="lcolumn">
