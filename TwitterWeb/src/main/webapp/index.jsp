@@ -38,13 +38,28 @@ $(document).ready(function(){
     <jsp:include page="${menu}" />
  	</div>
  	<!-- End Navigation -->
- 
-	<!-- Begin Content -->
-	<div class="vh-100" id="content">	
+	
+	<div class="row mt-5 mx-1" >
+ 	<!-- Left Column -->
+ 	<div class="col">
+		<div id="rcolumn">
+			<p></p>
+		</div>
+	</div>
+	<!-- Begin Main	Content -->
+	<div class="v-100 col-6 mt-3" id="content">	
 	<jsp:include page="${content}" />
 	</div>
-	<!-- End Content -->
+	<!-- End Main Content -->
 	
+	<!-- Right Column -->
+	<div class="col">
+		<div id="lcolumn">
+			<p></p>
+		</div>
+	</div>
+	
+	</div>
 	<script>
 		function stack() {
   			var x = document.getElementById("stack");
