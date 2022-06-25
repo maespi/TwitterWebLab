@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.servlet.RequestDispatcher;
@@ -36,7 +37,6 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		System.out.print("LoginController: ");
-		
 		User user = new User();
 		ManageUsers manager = new ManageUsers();
 		String view = "ViewLoginForm.jsp";
@@ -52,13 +52,14 @@ public class LoginController extends HttpServlet {
 	    			HttpSession session = request.getSession();
 	    			session.setAttribute("user",user);
 			    	view = "ViewOwnTimeline.jsp";
+					request.setAttribute("error", "");
 	    			
 	    		}
 	    		else {
 	    			System.out.println("User "+user.getUser()+" is not logged (user not found), forwarding to ViewLoginForm. ");
 				    view = "ViewLoginForm.jsp";
-	    			request.setAttribute("error", true);
 					request.setAttribute("user",user);
+					request.setAttribute("error", "Incorrect Credentials.");
 				}
 		    } 
 			else {
@@ -66,6 +67,7 @@ public class LoginController extends HttpServlet {
 				System.out.println("Login not completed, forwarding to ViewLoginForm. ");
 				request.setAttribute("user",user);
 				view = "ViewLoginForm.jsp";
+				request.setAttribute("error", "");
 		    	
 		    }
 	    	RequestDispatcher dispatcher = request.getRequestDispatcher(view);
