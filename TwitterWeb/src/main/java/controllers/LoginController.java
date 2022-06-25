@@ -52,14 +52,15 @@ public class LoginController extends HttpServlet {
 	    			HttpSession session = request.getSession();
 	    			session.setAttribute("user",user);
 			    	view = "ViewOwnTimeline.jsp";
-					request.setAttribute("error", "");
+					request.setAttribute("error", false);
 	    			
 	    		}
 	    		else {
 	    			System.out.println("User "+user.getUser()+" is not logged (user not found), forwarding to ViewLoginForm. ");
 				    view = "ViewLoginForm.jsp";
 					request.setAttribute("user",user);
-					request.setAttribute("error", "Incorrect Credentials.");
+					request.setAttribute("error", true);
+					request.setAttribute("error_msg", "Incorrect Credentials.");
 				}
 		    } 
 			else {
@@ -67,7 +68,7 @@ public class LoginController extends HttpServlet {
 				System.out.println("Login not completed, forwarding to ViewLoginForm. ");
 				request.setAttribute("user",user);
 				view = "ViewLoginForm.jsp";
-				request.setAttribute("error", "");
+				request.setAttribute("error", false);
 		    	
 		    }
 	    	RequestDispatcher dispatcher = request.getRequestDispatcher(view);

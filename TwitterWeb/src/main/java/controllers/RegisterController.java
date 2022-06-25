@@ -51,13 +51,14 @@ public class RegisterController extends HttpServlet {
 			   if(register) {
 				  System.out.println(" User saved, forwarding to ViewLoginForm");
 				  view = "ViewLoginForm.jsp"; 
-				  request.setAttribute("error", "");
+				  request.setAttribute("error", false);
 			   }
 			   else {
 				   System.out.println(" User not registered, forwarding to ViewRegisterForm");
 				   request.setAttribute("user",user);
 				   view = "ViewRegisterForm.jsp"; 
-				   request.setAttribute("error", "Invalid User.");
+				   request.setAttribute("error", true);
+				   request.setAttribute("error_msg", "Invalid User.");
 
 			   }
 		   }
@@ -65,7 +66,7 @@ public class RegisterController extends HttpServlet {
 			   System.out.println(" Forwarding to ViewRegisterForm");
 			   request.setAttribute("user",user);
 			   view = "ViewRegisterForm.jsp";
-			   request.setAttribute("error", "");
+			   request.setAttribute("error", false);
 		   }
 		  
 		   RequestDispatcher dispatcher = request.getRequestDispatcher(view);

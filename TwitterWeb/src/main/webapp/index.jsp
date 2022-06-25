@@ -34,13 +34,13 @@ $(document).ready(function(){
 <body>
 
  	<!-- Begin Navigation -->
- 	<div class="w3-bar w3-indigo" id="navigation">
+ 	<div class="w3-bar w3-indigo fixed-top" id="navigation">
     <jsp:include page="${menu}" />
  	</div>
  	<!-- End Navigation -->
  
 	<!-- Begin Content -->
-	<div class="d-flex flex-column justify-content-md-center align-items-center vh-100" id="content">	
+	<div class="vh-100" id="content">	
 	<jsp:include page="${content}" />
 	</div>
 	<!-- End Content -->
