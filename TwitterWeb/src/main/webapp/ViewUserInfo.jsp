@@ -3,7 +3,7 @@
 
 <div class="container rounded border border-secondary">
   <h4>My Profile</h4>
-  <p><img src="imgs/avatar3.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+  <p><img src="imgs/army-helicopter.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
   <hr>
   <p class="text-capitalize text-left align-middle"> <i class="fa fa-id-card fa-fw mr-5"></i>${user.user}</p>
   <p class="text-capitalize text-left align-middle"> <i class="fa fa-id-badge fa-fw mr-5"></i>${user.mail} </p>

@@ -47,13 +47,13 @@ public class ManageTweets {
 	}
 	
 	/* Delete existing tweet */
-	public void deleteTweet(Integer id,Integer uid) {
+	public void deleteTweet(Integer id,String uid) {
 		String query = "DELETE FROM tweets WHERE id = ? AND uid=?";
 		PreparedStatement statement = null;
 		try {
 			statement = db.prepareStatement(query);
 			statement.setInt(1,id);
-			statement.setInt(2,uid);
+			statement.setString(2,uid);
 			statement.executeUpdate();
 			statement.close();
 		} catch (SQLException e) {
@@ -79,7 +79,30 @@ public class ManageTweets {
 				 tweet.setUid(rs.getString("uid"));
 				 tweet.setPostDateTime(rs.getTimestamp("postdatetime"));
 				 tweet.setContent(rs.getString("content"));
-				 tweet.setUname(rs.getString("name"));
+				 l.add(tweet);
+			 }
+			 rs.close();
+			 statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return  l;
+	}
+	
+	public List<Tweet> getAllUserTweets(String uid) {
+		 String query = "SELECT tweets.id,tweets.uid,tweets.postdatetime,tweets.content,users.usr FROM tweets INNER JOIN users ON tweets.uid = users.usr where tweets.uid = ? ORDER BY tweets.postdatetime DESC;";
+		 PreparedStatement statement = null;
+		 List<Tweet> l = new ArrayList<Tweet>();
+		 try {
+			 statement = db.prepareStatement(query);
+			 statement.setString(1,uid);
+			 ResultSet rs = statement.executeQuery();
+			 while (rs.next()) {
+				 Tweet tweet = new Tweet();
+      		     tweet.setId(rs.getInt("id"));
+				 tweet.setUid(rs.getString("uid"));
+				 tweet.setPostDateTime(rs.getTimestamp("postdatetime"));
+				 tweet.setContent(rs.getString("content"));
 				 l.add(tweet);
 			 }
 			 rs.close();

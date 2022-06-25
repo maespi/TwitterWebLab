@@ -2,13 +2,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <c:forEach var="t" items="${tweets}">       
- <div id="${t.id}" class="w3-container w3-card w3-section w3-white w3-round w3-animate-opacity"><br>
-   <img src="imgs/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-   <span class="w3-right w3-opacity"> ${t.postDateTime} </span>
-   <h4> ${t.uname} </h4><br>
-   <hr class="w3-clear">
-   <p> ${t.content} </p>
-   <button type="button" class="likeTweet w3-button w3-theme w3-margin-bottom"><i class="fa fa-thumbs-up"></i> &nbsp;Like</button>
-   <button type="button" class="delTweet w3-button w3-red w3-margin-bottom"><i class="fa fa-trash"></i> &nbsp;Delete</button> 
+ <div id="${t.id}" class="container card bg-light my-3">
+	<div class="card-body d-flex flex-row pb-0" >
+		<div class="col-1 d-flex flex-column align-items-center">
+			<img src="imgs/ghost.png" alt="Avatar" class="" style="width:60px">
+			<h4> ${t.uid}</h4>
+		</div>
+		<div class="col-10 m-2 border rounded border-1 ">
+   			<p class="card-text text-left p-2"> ${t.content} </p>
+		</div>
+		<div class="col align-self-end">
+   			<div class="d-grid gap-2 mb-3">
+				   <button type="button" class="likeTweet btn btn-outline-success"><i class="fa fa-thumbs-up"></i></button>
+				   <button type="button" class="delTweet btn btn-outline-danger"><i class="fa fa-trash"></i></button>
+			</div>
+		</div>
+	</div>
+	<p class="m-0 opacity-25 small"> ${t.postDateTime} </p>
  </div>
 </c:forEach>

@@ -4,16 +4,16 @@
  <script type="text/javascript">
  $(document).ready(function(){
 	$('#navigation').load('MenuController');
-	$('#lcolumn').load('GetNotFollowedUsers');
-	$('#rcolumn').load('GetUserInfo');
+	//$('#rcolumn').load('GetNotFollowedUsers');
+	$('#lcolumn').load('GetUserInfo');
 	$('#iterator').load('GetUserTweets');
  });
-</script>
-
+ </script>
+ 
 <div class="container rounded border border-secondary pt-3">
 	<h6 class="w3-opacity"> ${user.user}, what are you thinking? </h6>
-	<p id="tweetContent" contenteditable="true" class="w3-border w3-padding"> </p>
-	<button id="addTweet" type="button" class="w3-button w3-theme w3-section"><i class="fa fa-pencil"></i> &nbsp;Post</button> 
+	<p id="tweetContent" contenteditable="true" class="border p-2"> </p>
+	<button id="addTweet" type="button" class="btn btn-primary bckg-primary-color mb-2 "><i class="fa fa-pencil"></i> &nbsp;Post</button> 
 </div>
  
 <div id="iterator">

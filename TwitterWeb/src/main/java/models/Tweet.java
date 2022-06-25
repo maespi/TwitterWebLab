@@ -7,7 +7,6 @@ public class Tweet implements java.io.Serializable {
 
 	 private int id;
 	 private String uid;
-	 private String uname;
 	 private Timestamp postDateTime;
 	 private String content;
 
@@ -28,14 +27,6 @@ public class Tweet implements java.io.Serializable {
 	 
 	 public void setUid(String uid) {
 		 this.uid = uid;
-	 }
-	 
-	 public String getUname() {
-		 return this.uname;
-	 }
-	 
-	 public void setUname(String uname) {
-		 this.uname = uname;
 	 }
 	 
 	 public Timestamp getPostDateTime() {

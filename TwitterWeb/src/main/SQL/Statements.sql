@@ -35,7 +35,7 @@ CREATE TABLE `tweets` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uid` varchar(20) NOT NULL,
   `postdatetime` timestamp NULL DEFAULT NULL,
-  `content` varchar(100) DEFAULT NULL,
+  `content` TEXT DEFAULT NULL,
   `pid` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `tweets_users_fk` (`uid`),

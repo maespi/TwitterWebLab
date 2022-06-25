@@ -1,10 +1,9 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.Timestamp;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,22 +11,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import managers.ManageTweets;
 import models.Tweet;
 import models.User;
 
 /**
- * Servlet implementation class dTcontroller
+ * Servlet implementation class AddTweetFromUser
  */
-@WebServlet("/GetUserTweets")
-public class GetUserTweets extends HttpServlet {
+@WebServlet("/AddTweet")
+public class AddTweet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetUserTweets() {
+    public AddTweet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -35,19 +37,24 @@ public class GetUserTweets extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		Tweet tweet = new Tweet();
+		ManageTweets tweetManager = new ManageTweets();
 		HttpSession session = request.getSession(false);
-		List<Tweet> tweets = Collections.emptyList();
 		User user = (User) session.getAttribute("user");
 		
-		if (session != null || user != null) {
-			ManageTweets tweetManager = new ManageTweets();
-			tweets = tweetManager.getAllUserTweets(user.getUser());
-			tweetManager.finalize();
-		}
+		try {
+			
+			if (session != null || user != null)
+				BeanUtils.populate(tweet, request.getParameterMap());
+				tweet.setUid(user.getUser());
+				tweet.setPostDateTime(new Timestamp(System.currentTimeMillis()));
+				tweetManager.addTweet(tweet);
+				tweetManager.finalize();
 
-		request.setAttribute("tweets",tweets);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/ViewTweets.jsp"); 
-		dispatcher.forward(request,response);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -55,8 +62,8 @@ public class GetUserTweets extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
 }
-
