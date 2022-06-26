@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" session="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -11,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="Assets/css/all.css">
 <link href="css/MainStyle.css" rel="stylesheet">
 <script type="text/javascript">
 $(document).ready(function(){
@@ -44,25 +45,23 @@ $(document).ready(function(){
 	$(document).on("click",".delTweet",function(event){
 		var tweet = $(this).parent();
 		$.post( "DelTweet", { id: tweet.parent().parent().parent().attr('id') } , function(event) {
-			$("#content").load("GetOwnTimeline");				
+			$("#content").load("GetOwnTimeline");	
+			event.preventDefault();
 		});
-		event.preventDefault();
 	});
 	/* Follow user */
 	$(document).on("click",".followUser",function(event){
-		var user = $(this).parent();
-		$.post( "FollowUser", { id: $(this).parent().attr("id") }, function(event) { 
-			$("#content").load("GetFollowedUsers");
-			$("#lcolumn").load("GetNotFollowedUsers");
+		var user = $("#user").text();
+		$.post( "FollowUser", { user: user, follow: "true" }, function(event) {
+			$("#lcolumn").load("GetUserInfo");
 		});
 		event.preventDefault();
 	});
 	/* UnFollow user */
-	$(document).on("click",".unfollowUser",function(event) {
-		var user = $(this).parent();
-		$.post( "UnFollowUser", { id: $(this).parent().attr("id") }, function(event) {
-			$("#content").load("GetFollowedUsers");
-			$("#lcolumn").load("GetNotFollowedUsers");
+	$(document).on("click",".unFollowUser",function(event) {
+		var user = $("#user").text();
+		$.post( "FollowUser", { user: user, follow: "false" }, function(event) {
+			$("#lcolumn").load("GetUserInfo");
 		});
 		event.preventDefault();
 	});
@@ -98,6 +97,7 @@ $(document).ready(function(){
 	</div>
 	
 	</div>
+
 	<script>
 		function stack() {
   			var x = document.getElementById("stack");

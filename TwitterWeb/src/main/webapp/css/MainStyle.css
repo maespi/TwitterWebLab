@@ -1,14 +1,36 @@
+.primary-color {
+	color: #577BCA;
+}
+
 .bckg-primary-color {
 	background-color: #577BCA;
 }
+
 .secondary-color {
 	color: #6D77A0;
+}
+
+.bckg-secondary-color {
+	background-color: #6D77A0;
+}
+
+.thrd-color{
+	color: #3A4957
+}
+
+.bckg-thrd-color{
+	background-color: #3A4957
+}
+
+.fourth-color{
+	color: #8BAFCD;
+}
+
+.bckg-fourth-color{
+	background-color: #8BAFCD;
 }
 
 .mr-5 {
 	margin-right: 3rem
 }
 
-.bckg-thrd-color{
-	background-color: #3A4957
-}

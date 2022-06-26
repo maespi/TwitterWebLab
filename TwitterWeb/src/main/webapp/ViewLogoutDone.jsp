@@ -5,4 +5,4 @@
 $('#navigation').load('MenuController');
 </script>
 
-<p id="nav"> Logout done! </p>
+<p id="nav" class="mt-5"> Logout done! </p>

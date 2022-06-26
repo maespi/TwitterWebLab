@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,20 +11,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import managers.ManageUsers;
 import models.User;
 
 /**
- * Servlet implementation class GetOwnTimeline
+ * Servlet implementation class FollowUser
  */
-@WebServlet("/GetOwnTimeline")
-public class GetOwnTimeline extends HttpServlet {
+@WebServlet("/FollowUser")
+public class FollowUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetOwnTimeline() {
+    public FollowUser() {
         super();
     }
 
@@ -32,31 +35,24 @@ public class GetOwnTimeline extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
-		String target = request.getParameter("target");
-		User user = (User) session.getAttribute("user");
-		User targetUser = new User();
+		User fuser = new User();
 		ManageUsers userManager = new ManageUsers();
+		HttpSession session = request.getSession(false);
+		User user = (User) session.getAttribute("user");
+		fuser.setUser(request.getParameter("user"));
 		
-		//If target exists in the db, is set as a session attr.
-		if (target != null) {
-			targetUser = userManager.getUser(target);
-			//In case target exists, get user and if its correct check follow
-			if(targetUser != null) {
-				if(targetUser.getUser() != user.getUser())
-					session.setAttribute("target",targetUser);
-				
-					
-			}else {
-				request.setAttribute("error", true);
-				request.setAttribute("error_msg", "User does not exist.");
-			}
+		//Parse String to boolean to switch between follow and unfollow.
+		boolean follow = Boolean.parseBoolean(request.getParameter("follow"));	
+		if (session != null || user != null) {
+			if(follow)
+				userManager.followUser(user.getUser(),fuser.getUser());
+			else
+				userManager.unFollowUser(user.getUser(),fuser.getUser());
+			
 		}
-		
 		userManager.finalize();
-		RequestDispatcher dispatcher = request.getRequestDispatcher("ViewOwnTimeline.jsp");
-		dispatcher.forward(request, response);
-		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/ViewUserInfo.jsp"); 
+		dispatcher.include(request,response);
 	}
 
 	/**

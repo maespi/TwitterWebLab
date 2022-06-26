@@ -35,19 +35,23 @@ public class GetUserInfo extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		User user = (User) session.getAttribute("user");
 		User target = (User) session.getAttribute("target");
+		ManageUsers userManager = new ManageUsers();
 		//Get user in case its passed as an argument.
 		if (session != null || user != null) {
-			ManageUsers userManager = new ManageUsers();
 			user = userManager.getUser(user.getUser());
-			userManager.finalize();
 			request.setAttribute("user",user);
 			
+			//Set target as both attr to avoid unnecessary changes on the view.
+			if(target != null && (target.getUser() != user.getUser())) {
+				request.setAttribute("target",target);
+				request.setAttribute("user",target);
+				request.setAttribute("follow",false);
+				if(userManager.ifFollowedUser(user.getUser(), target.getUser()))
+					request.setAttribute("follow",true);
+			}
 		}
-		//Set target as both attr to avoid unnecessary changes on the view.
-		if(target != null) {
-			request.setAttribute("target",target);
-			request.setAttribute("user",target);
-		}		
+		
+		userManager.finalize();
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/ViewUserInfo.jsp"); 
 		dispatcher.include(request,response);
 	}

@@ -22,6 +22,7 @@ public class ManageUsers {
 		}
 	}
 	
+	//Finalizes DB connection.
 	public void finalize() {
 		try {
 			db.disconnectBD();
@@ -50,7 +51,7 @@ public class ManageUsers {
 		return test;
 	}
 	
-	/*Check if all the fields are filled correctly */
+	//Check if all the fields are filled correctly.
 	public boolean isComplete(User user) {
 	    return(hasValue(user.getUser()) &&
 	    	   hasValue(user.getMail()) &&
@@ -61,11 +62,13 @@ public class ManageUsers {
 		return((val != null) && (!val.equals("")));
 	}
 	
+	//Check min requirements for login completion.
 	public boolean isLoginComplete(User user) {
 	    return(hasValue(user.getUser()) &&
 	    	   hasValue(user.getPwd()) );
 	}
-		
+	
+	//Gets One user by username (PK).
 	public User getUser(String name) {
 		String query = "Select usr, mail FROM users WHERE usr = ? ;";
 		PreparedStatement statement = null;
@@ -89,6 +92,7 @@ public class ManageUsers {
 		return user;
 	}
 	
+	//Return list of users.
 	public List<User> getUsers(List<String> names) {
 		
 		List<User> users = new ArrayList<User>();
@@ -100,7 +104,7 @@ public class ManageUsers {
 		}
 		return users;
 	}
-	
+	//Test if the User Login is correct.
 	public Boolean checkLogin(User user) {
 		
 		String query = "SELECT usr,mail from users where usr = ? AND pwd = ?";
@@ -127,6 +131,66 @@ public class ManageUsers {
 		return output;
 		
 	}
-	// TODO: add other methods 
+	
+	// Boolean function on follow a user.
+	public boolean ifFollowedUser(String uid, String fid) {
+		String query = "Select uid, fid FROM follows WHERE uid = ? AND fid = ?";
+		PreparedStatement statement = null;
+		boolean output = false;
+		try {
+			statement = db.prepareStatement(query);
+			statement.setString(1,uid);
+			statement.setString(2,fid);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				output = true;
+			} 
+			statement.close();
+			rs.close();
+		} catch (SQLIntegrityConstraintViolationException e) {
+			System.out.println(e.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return output;
+	}
+	
+	
+	// Follow a user.
+	public void followUser(String uid, String fid) {
+		String query = "INSERT INTO follows (uid,fid) VALUES (?,?)";
+		PreparedStatement statement = null;
+		try {
+			statement = db.prepareStatement(query);
+			statement.setString(1,uid);
+			statement.setString(2,fid);
+			statement.executeUpdate();
+			statement.close();
+		} catch (SQLIntegrityConstraintViolationException e) {
+			System.out.println(e.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// UnFollow a user.
+	public void unFollowUser(String uid, String fid) {
+		String query = "DELETE FROM follows WHERE uid = ? AND fid = ?";
+		PreparedStatement statement = null;
+		try {
+			statement = db.prepareStatement(query);
+			statement.setString(1,uid);
+			statement.setString(2,fid);
+			statement.executeUpdate();
+			statement.close();
+		} catch (SQLIntegrityConstraintViolationException e) {
+			System.out.println(e.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
 
 }
