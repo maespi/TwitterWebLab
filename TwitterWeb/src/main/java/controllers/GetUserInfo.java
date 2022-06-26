@@ -44,7 +44,7 @@ public class GetUserInfo extends HttpServlet {
 			//Set target as both attr to avoid unnecessary changes on the view.
 			if(target != null && (target.getUser() != user.getUser())) {
 				request.setAttribute("target",target);
-				request.setAttribute("user",target);
+				request.setAttribute("user",user);
 				request.setAttribute("follow",false);
 				if(userManager.ifFollowedUser(user.getUser(), target.getUser()))
 					request.setAttribute("follow",true);

@@ -11,14 +11,18 @@
 		<div class="col-10 m-2 border rounded border-1 ">
    			<p class="card-text text-left p-2"> ${t.content} </p>
 		</div>
-		<c:if test = "${empty target}">
-			<div class="col align-self-end">
-	   			<div class="d-grid gap-2 mb-3">
-					   <button type="button" class="likeTweet btn btn-outline-success"><i class="fa fa-thumbs-up"></i></button>
-					   <button type="button" class="delTweet btn btn-outline-danger"><i class="fa fa-trash"></i></button>
-				</div>
+		<div class="col align-self-end">
+			<div class="d-grid gap-2 mb-3">
+				<c:choose>
+			    <c:when test= "${user.user == t.uid}">
+					<button type="button" class="delTweet btn btn-outline-danger"><i class="fa fa-trash"></i></button>
+				</c:when>
+				 <c:otherwise>
+						<button type="button" class="likeTweet btn btn-outline-success"><i class="fa fa-thumbs-up"></i></button>
+				</c:otherwise>
+				</c:choose>
 			</div>
-		</c:if>
+		</div>
 	</div>
 	<p class="m-0 opacity-25 small"> ${t.postDateTime} </p>
  </div>

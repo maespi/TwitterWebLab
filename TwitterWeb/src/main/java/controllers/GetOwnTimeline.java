@@ -38,20 +38,23 @@ public class GetOwnTimeline extends HttpServlet {
 		User targetUser = new User();
 		ManageUsers userManager = new ManageUsers();
 		
+		boolean own = Boolean.parseBoolean(request.getParameter("own"));
+		
+		if(own)
+			target = user.getUser();
+		
 		//If target exists in the db, is set as a session attr.
 		if (target != null) {
 			targetUser = userManager.getUser(target);
 			//In case target exists, get user and if its correct check follow
 			if(targetUser != null) {
-				if(targetUser.getUser() != user.getUser())
-					session.setAttribute("target",targetUser);
-				
-					
-			}else {
+				session.setAttribute("target",targetUser);
+			}else{
 				request.setAttribute("error", true);
 				request.setAttribute("error_msg", "User does not exist.");
 			}
-		}
+		}else
+			session.setAttribute("target", null);
 		
 		userManager.finalize();
 		RequestDispatcher dispatcher = request.getRequestDispatcher("ViewOwnTimeline.jsp");

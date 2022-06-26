@@ -24,11 +24,19 @@ $(document).ready(function(){
 		$('#rcolumn').html('');
 		event.preventDefault();
 	});
-	$(document).on("click",".menu", async function(event) {
-		const response = await fetch($(this).attr('id'));
-		$('#content').html(await response.text());
+	$(document).on("click",".menu", function(event) {
+		$('#content').load($(this).attr('id'));
 		event.preventDefault();
 	});
+	
+	$(document).on("click",".myTime",function(event){
+		var tweet = $(this).parent();
+		$.post( "GetOwnTimeline", { own: "true" } , function(event) {
+			$("#content").load("ViewOwnTimeline.jsp");	
+			event.preventDefault();
+		});
+	});
+	
 	$(document).on("submit","form", function(event) {
 		$('#content').load($(this).attr('action'),$(this).serialize());
 		event.preventDefault();
