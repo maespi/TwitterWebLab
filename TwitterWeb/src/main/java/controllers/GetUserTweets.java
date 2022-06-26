@@ -41,17 +41,18 @@ public class GetUserTweets extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		User target = (User) session.getAttribute("target");
 		
-		//We Check to see if target is created, in that case we exchange the data to load the target tweets
+		//We Check to see if target is created, in that case we exchange the data to load the target tweets.
 		if(target != null) {
 			user = target;
 		}
 		
 		if (user != null) {
+			//Retrieval of the Tweets.
 			ManageTweets tweetManager = new ManageTweets();
 			tweets = tweetManager.getAllUserTweets(user.getUser());
 			tweetManager.finalize();	
 		}
-		//Those tweets are stored in a temp storage (request)
+		//Those tweets are stored in a temp storage (request) and so is target to use it in the view.
 		request.setAttribute("target",target);
 		request.setAttribute("tweets",tweets);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/ViewTweets.jsp"); 

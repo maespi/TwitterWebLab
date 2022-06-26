@@ -35,7 +35,7 @@ public class GetOwnTimeline extends HttpServlet {
 		HttpSession session = request.getSession();
 		String target = request.getParameter("target");
 		User targetUser = new User();
-		
+		//If target exists in the db, is set as a session attr.
 		if (target != null) {
 			ManageUsers userManager = new ManageUsers();
 			targetUser = userManager.getUser(target);

@@ -31,7 +31,7 @@ public class MainController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession(false);
-		session.setAttribute("target", null);
+		session.setAttribute("target", null);//Clean target variable from session.
 		
 		if (session==null || session.getAttribute("user")==null) {
 			System.out.println("MainController: NO active session has been found,");
