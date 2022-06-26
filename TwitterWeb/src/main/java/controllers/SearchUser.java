@@ -8,52 +8,36 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import managers.ManageUsers;
-import models.User;
 
 /**
- * Servlet implementation class GetOwnTimeline
+ * Servlet implementation class SearchUser
  */
-@WebServlet("/GetOwnTimeline")
-public class GetOwnTimeline extends HttpServlet {
+@WebServlet("/SearchUser")
+public class SearchUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetOwnTimeline() {
+    public SearchUser() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		HttpSession session = request.getSession();
-		String target = request.getParameter("target");
-		User targetUser = new User();
-		
-		if (target != null) {
-			ManageUsers userManager = new ManageUsers();
-			targetUser = userManager.getUser(target);
-			userManager.finalize();
-			if(targetUser != null) {
-				session.setAttribute("target",targetUser);
-			}
-		}
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("ViewOwnTimeline.jsp");
-		dispatcher.forward(request, response);
-		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/FormSearchUser.jsp"); 
+		dispatcher.include(request,response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

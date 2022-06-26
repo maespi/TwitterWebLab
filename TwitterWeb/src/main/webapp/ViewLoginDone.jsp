@@ -4,5 +4,8 @@
 <script type="text/javascript">
 $('#navigation').load('MenuController');
 </script>
-
+<p></p>
+<p></p>
+<p></p>
+<p></p>
 Login for user ${sessionScope.user} done!

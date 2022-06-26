@@ -42,7 +42,7 @@ public class RegisterController extends HttpServlet {
 		   User user = new User();
 		   BeanUtils.populate(user, request.getParameterMap());
 		   
-		   if (user.isComplete()) {
+		   if (user.isFull()) {
 			   boolean register = false;
 			   ManageUsers manager = new ManageUsers();
 			   System.out.println(" User ok, saving to DB");

@@ -11,12 +11,14 @@
 		<div class="col-10 m-2 border rounded border-1 ">
    			<p class="card-text text-left p-2"> ${t.content} </p>
 		</div>
-		<div class="col align-self-end">
-   			<div class="d-grid gap-2 mb-3">
-				   <button type="button" class="likeTweet btn btn-outline-success"><i class="fa fa-thumbs-up"></i></button>
-				   <button type="button" class="delTweet btn btn-outline-danger"><i class="fa fa-trash"></i></button>
+		<c:if test = "${empty target}">
+			<div class="col align-self-end">
+	   			<div class="d-grid gap-2 mb-3">
+					   <button type="button" class="likeTweet btn btn-outline-success"><i class="fa fa-thumbs-up"></i></button>
+					   <button type="button" class="delTweet btn btn-outline-danger"><i class="fa fa-trash"></i></button>
+				</div>
 			</div>
-		</div>
+		</c:if>
 	</div>
 	<p class="m-0 opacity-25 small"> ${t.postDateTime} </p>
  </div>

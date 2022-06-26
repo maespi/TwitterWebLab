@@ -56,9 +56,16 @@ public class User implements java.io.Serializable {
 	}
 	
 	/* Logic Functions */
+	public boolean isFull() {
+	    return(hasValue(getUser()) &&
+	           hasValue(getPwd()) &&
+	           hasValue(getMail()) );
+	}
+	
+	/* Logic Functions */
 	public boolean isComplete() {
 	    return(hasValue(getUser()) &&
-	           hasValue(getPwd()) );
+	           hasValue(getMail()));
 	}
 	
 	private boolean hasValue(String val) {

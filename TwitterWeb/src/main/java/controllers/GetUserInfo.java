@@ -34,14 +34,19 @@ public class GetUserInfo extends HttpServlet {
 		
 		HttpSession session = request.getSession(false);
 		User user = (User) session.getAttribute("user");
+		User target = (User) session.getAttribute("target");
 		
 		if (session != null || user != null) {
 			ManageUsers userManager = new ManageUsers();
 			user = userManager.getUser(user.getUser());
 			userManager.finalize();
+			request.setAttribute("user",user);
+			
 		}
-		
-		request.setAttribute("user",user);
+		if(target != null) {
+			request.setAttribute("target",target);
+			request.setAttribute("user",target);
+		}		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/ViewUserInfo.jsp"); 
 		dispatcher.include(request,response);
 	}
