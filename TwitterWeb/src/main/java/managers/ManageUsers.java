@@ -7,6 +7,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.Tweet;
 import models.User;
 import utils.DB;
 
@@ -104,6 +105,34 @@ public class ManageUsers {
 		}
 		return users;
 	}
+	
+	//Return list of users.
+		public List<User> getXUsers(int x) {
+			
+			List<User> users = new ArrayList<User>();
+			String query = "Select usr, mail FROM users LIMIT ? ;";
+			PreparedStatement statement = null;
+			ResultSet rs = null;
+			User user = null;
+			try {
+				statement = db.prepareStatement(query);
+				statement.setInt(1,x);
+				rs = statement.executeQuery();
+				while (rs.next()) {
+					user = new User();
+					user.setUser(rs.getString("usr"));
+					user.setMail(rs.getString("mail"));
+					users.add(user);
+				}
+				rs.close();
+				statement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return users;
+		}
+	
 	//Test if the User Login is correct.
 	public Boolean checkLogin(User user) {
 		

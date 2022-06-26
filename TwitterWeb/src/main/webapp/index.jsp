@@ -28,13 +28,18 @@ $(document).ready(function(){
 		$('#content').load($(this).attr('id'));
 		event.preventDefault();
 	});
-	
+	//Show Personal Timeline
 	$(document).on("click",".myTime",function(event){
 		var tweet = $(this).parent();
 		$.post( "GetOwnTimeline", { own: "true" } , function(event) {
 			$("#content").load("ViewOwnTimeline.jsp");	
 			event.preventDefault();
 		});
+	});
+	//Explore Users
+	$(document).on("click",".users", function(event) {
+		$('#content').load('GetUsers');
+		event.preventDefault();
 	});
 	
 	$(document).on("submit","form", function(event) {
