@@ -4,7 +4,7 @@ public class Pair
 {
     User user;
     boolean follow;
-    
+    //Object Used mainly to controll users and wheter if they follow the main user doing the quest
 	public Pair(User user, boolean follow) {
 		super();
 		this.user = user;

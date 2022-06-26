@@ -49,7 +49,7 @@ public class GetUsers extends HttpServlet {
 			//Retrieval of 10 first users.
 			ManageUsers userManager = new ManageUsers();
 			users = userManager.getXUsers(10);
-			//users.forEach(usr -> pairUsers.add(new Pair(usr,userManager.ifFollowedUser(user.getUser(), usr.getUser()))));
+			//We get each user and whether or not they follow the current main user
 			for(int i=0;i<users.size();i++) {
 				boolean follow = userManager.ifFollowedUser(user.getUser(), users.get(i).getUser());
 				Pair p = new Pair();
