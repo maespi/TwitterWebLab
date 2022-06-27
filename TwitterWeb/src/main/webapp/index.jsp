@@ -61,7 +61,7 @@ $(document).ready(function(){
 	$(document).on("click",".delTweet",function(event){
 		var tweet = $(this).parent();
 		$.post( "DelTweet", { id: tweet.parent().parent().parent().attr('id') } , function(event) {
-			$("#content").load("GetOwnTimeline");
+			$("#content").load("ViewOwnTimeline.jsp");
 		});
 		event.preventDefault();
 	});
@@ -70,7 +70,8 @@ $(document).ready(function(){
 	$(document).on("click",".deleteUser",function(event){
 		var user = $(this).parent().parent().parent().find('h4').text();
 		$.post( "DelUser", { user: user } , function(event) {
-			$("#content").load("GetOwnTimeline");//$("#content").load("ViewOwnTimeline.jsp");
+			$("#lcolumn").load("GetUserInfo");
+			$('#content').load('GetUsers');
 		});
 		console.log(user);
 		event.preventDefault();

@@ -39,21 +39,24 @@ public class GetUserTweets extends HttpServlet {
 		HttpSession session = request.getSession();
 		List<Tweet> tweets = Collections.emptyList();
 		User user = (User) session.getAttribute("user");
+		boolean anon = (boolean) session.getAttribute("anon");
 		User target = (User) session.getAttribute("target");
+		ManageTweets tweetManager = new ManageTweets();
 		
 		//We Check to see if target is created, in that case we exchange the data to load the target tweets.
 		if (user != null) {
 			//Retrieval of the Tweets.
-			ManageTweets tweetManager = new ManageTweets();
 			if(target != null) {
 				tweets = tweetManager.getAllUserTweets(target.getUser());
 			}else {
 				tweets = tweetManager.getFollowingAllTweets(user.getUser());
-			}
-			
-			tweetManager.finalize();	
+			}	
+		}else if(anon) {
+			tweets = tweetManager.getTweets(20);
 		}
+			
 		//Those tweets are stored in a temp storage (request) and so is target to use it in the view.
+		tweetManager.finalize();
 		request.setAttribute("user",user);
 		request.setAttribute("target",target);
 		request.setAttribute("tweets",tweets);

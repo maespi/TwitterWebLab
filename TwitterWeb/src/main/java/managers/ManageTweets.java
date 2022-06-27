@@ -102,6 +102,7 @@ public class ManageTweets {
 		return  l;
 	}
 	
+	/* Get All tweets from concrete user. */
 	public List<Tweet> getAllUserTweets(String uid) {
 		 String query = "SELECT tweets.id,tweets.uid,tweets.postdatetime,tweets.content,users.usr FROM tweets INNER JOIN users ON tweets.uid = users.usr where tweets.uid = ? ORDER BY tweets.postdatetime DESC;";
 		 PreparedStatement statement = null;
@@ -125,8 +126,6 @@ public class ManageTweets {
 		} 
 		return  l;
 	}
-	//select * from Tweets where uid in (select fid from follows where uid like "admin"); 
-	//SELECT tweets.id,tweets.uid,tweets.postdatetime,tweets.content,users.usr FROM tweets INNER JOIN users ON tweets.uid = users.usr where tweets.uid = ? ORDER BY tweets.postdatetime DESC
 	
 	//Select Tweets from all following users
 	public List<Tweet> getFollowingAllTweets(String uid) {
@@ -140,6 +139,31 @@ public class ManageTweets {
 			 while (rs.next()) {
 				 Tweet tweet = new Tweet();
      		     tweet.setId(rs.getInt("id"));
+				 tweet.setUid(rs.getString("uid"));
+				 tweet.setPostDateTime(rs.getTimestamp("postdatetime"));
+				 tweet.setContent(rs.getString("content"));
+				 l.add(tweet);
+			 }
+			 rs.close();
+			 statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return  l;
+	}
+	
+	/* Get x number of tweets. */
+	public List<Tweet> getTweets(Integer x) {
+		 String query = "SELECT tweets.id,tweets.uid,tweets.postdatetime,tweets.content FROM tweets ORDER BY tweets.postdatetime DESC LIMIT ? ;";
+		 PreparedStatement statement = null;
+		 List<Tweet> l = new ArrayList<Tweet>();
+		 try {
+			 statement = db.prepareStatement(query);
+			 statement.setInt(1,x);
+			 ResultSet rs = statement.executeQuery();
+			 while (rs.next()) {
+				 Tweet tweet = new Tweet();
+       		     tweet.setId(rs.getInt("id"));
 				 tweet.setUid(rs.getString("uid"));
 				 tweet.setPostDateTime(rs.getTimestamp("postdatetime"));
 				 tweet.setContent(rs.getString("content"));
