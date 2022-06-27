@@ -33,11 +33,13 @@ $(document).ready(function(){
 		var tweet = $(this).parent();
 		$.post( "GetOwnTimeline", { own: "true" } , function(event) {
 			$("#content").load("ViewOwnTimeline.jsp");	
-			event.preventDefault();
 		});
+		event.preventDefault();
 	});
-	//Explore Users
+	
+	/*Explore Users*/
 	$(document).on("click",".users", function(event) {
+		$('#lcolumn').load('GetUserInfo');
 		$('#content').load('GetUsers');
 		event.preventDefault();
 	});
@@ -51,31 +53,46 @@ $(document).ready(function(){
 	$(document).on("click","#addTweet",function(event){
 		$.post( "AddTweet", { content: $("#tweetContent").text()}, function(event) {
 			$("#content").load("GetOwnTimeline");	
-			event.preventDefault();
 		});
+		event.preventDefault();
 	});
+	
 	/* Delete tweet */
 	$(document).on("click",".delTweet",function(event){
 		var tweet = $(this).parent();
 		$.post( "DelTweet", { id: tweet.parent().parent().parent().attr('id') } , function(event) {
-			$("#content").load("GetOwnTimeline");	
-			event.preventDefault();
+			$("#content").load("GetOwnTimeline");
 		});
+		event.preventDefault();
 	});
+	
+	/* Delete user */
+	$(document).on("click",".deleteUser",function(event){
+		var user = $(this).parent().parent().parent().find('h4').text();
+		$.post( "DelUser", { user: user } , function(event) {
+			$("#content").load("GetOwnTimeline");//$("#content").load("ViewOwnTimeline.jsp");
+		});
+		console.log(user);
+		event.preventDefault();
+	});
+	
 	/* Follow user */
 	$(document).on("click",".followUser",function(event){
-		var user = $("#user").text();
-		$.post( "FollowUser", { user: user, follow: "true" }, function(event) {
+		var user = $(this).parent().parent().parent().find('h4').text();
+		$.post( "FollowUser", { fuser: user, follow: "true" }, function(event) {
 			$("#lcolumn").load("GetUserInfo");
+			$('#content').load('GetUsers');
 		});
 		event.preventDefault();
 	});
 	/* UnFollow user */
 	$(document).on("click",".unFollowUser",function(event) {
-		var user = $("#user").text();
-		$.post( "FollowUser", { user: user, follow: "false" }, function(event) {
+		var user = $(this).parent().parent().parent().find('h4').text();
+		$.post( "FollowUser", { fuser: user, follow: "false" }, function(event) {
 			$("#lcolumn").load("GetUserInfo");
+			$('#content').load('GetUsers');
 		});
+		console.log($(this).parent().parent().parent().find('h4').text())
 		event.preventDefault();
 	});
 });

@@ -13,20 +13,21 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.beanutils.BeanUtils;
 
 import managers.ManageTweets;
+import managers.ManageUsers;
 import models.Tweet;
 import models.User;
 
 /**
- * Servlet implementation class DelTweet
+ * Servlet implementation class DelUser
  */
-@WebServlet("/DelTweet")
-public class DelTweet extends HttpServlet {
+@WebServlet("/DelUser")
+public class DelUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DelTweet() {
+    public DelUser() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,22 +36,14 @@ public class DelTweet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		Tweet tweet = new Tweet();
-		ManageTweets tweetManager = new ManageTweets();
-		HttpSession session = request.getSession(false);
-		User user = (User) session.getAttribute("user");
-
-		try {
-			if (session != null || user != null) {
-				BeanUtils.populate(tweet, request.getParameterMap());
-				tweetManager.deleteTweet(tweet.getId());
-			}
-		} catch (IllegalAccessException | InvocationTargetException e) {
-			e.printStackTrace();
-		}
 		
-		tweetManager.finalize();
+		ManageUsers userManager = new ManageUsers();
+		String username = (String) request.getParameter("user");
+		User user = userManager.getUser(username);
+		if(user != null) {
+			userManager.deleteUser(user.getUser());
+		}
+		userManager.finalize();
 	}
 
 	/**
@@ -60,5 +53,4 @@ public class DelTweet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

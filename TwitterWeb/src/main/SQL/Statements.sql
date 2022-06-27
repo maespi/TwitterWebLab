@@ -11,6 +11,7 @@ CREATE TABLE `users` (
   `usr` varchar(20) NOT NULL,
   `mail` varchar(40) NOT NULL,
   `pwd` varchar(20) NOT NULL,
+  `admin` boolean DEFAULT false,
   PRIMARY KEY (`usr`),
   UNIQUE KEY `mail` (`mail`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -40,7 +41,7 @@ CREATE TABLE `tweets` (
   PRIMARY KEY (`id`),
   KEY `tweets_users_fk` (`uid`),
   KEY `tweets_tweets_fk` (`pid`),
-  CONSTRAINT `tweets_tweets_fk` FOREIGN KEY (`pid`) REFERENCES `tweets` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `tweets_tweets_fk` FOREIGN KEY (`pid`) REFERENCES `tweets` (`id`),
   CONSTRAINT `tweets_users_fk` FOREIGN KEY (`uid`) REFERENCES `users` (`usr`)
 ) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

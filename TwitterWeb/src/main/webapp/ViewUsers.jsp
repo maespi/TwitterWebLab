@@ -7,7 +7,8 @@
 		 <jsp:param name="target_user" value="${p.user.user}" />
 		 <jsp:param name="target_mail" value="${p.user.mail}" />
 		 <jsp:param name="target_follow" value="${p.follow}" />
-		 <jsp:param name="user" value="${user}" />
+		 <jsp:param name="user" value="${user.user}" />
+		 <jsp:param name="user_admin" value="${user.admin}" />
 	</jsp:include>
  </div>
 </c:forEach>

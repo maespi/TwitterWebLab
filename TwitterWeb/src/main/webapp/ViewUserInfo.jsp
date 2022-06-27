@@ -27,6 +27,9 @@
 </c:choose>
   
   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <c:if test="${(user.admin || param.user_admin) && ((not empty param.target_user && (param.target_user != param.user)) || (not empty target && (user.user != target.user)))}">
+		<button type="button" class="deleteUser btn btn-danger mb-3"><i class="fa fa-trash"></i>&nbsp;DELETE</button> 
+  </c:if>
   <c:choose>
     <c:when test="${(empty target && empty param.target_user) || ((not empty target ) && (target.user == user.user)) || ((not empty param.target_user ) && (param.target_user == user.user))}">
         <button type="button" class="btn btn-primary bckg-primary-color mb-3 "><i class="fa fa-user-plus"></i>&nbsp;Edit</button> 

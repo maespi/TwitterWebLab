@@ -39,7 +39,7 @@ public class FollowUser extends HttpServlet {
 		ManageUsers userManager = new ManageUsers();
 		HttpSession session = request.getSession(false);
 		User user = (User) session.getAttribute("user");
-		fuser.setUser(request.getParameter("user"));
+		fuser.setUser(request.getParameter("fuser"));
 		
 		//Parse String to boolean to switch between follow and unfollow.
 		boolean follow = Boolean.parseBoolean(request.getParameter("follow"));	

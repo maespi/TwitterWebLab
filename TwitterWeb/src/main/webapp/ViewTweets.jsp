@@ -14,7 +14,7 @@
 		<div class="col align-self-end">
 			<div class="d-grid gap-2 mb-3">
 				<c:choose>
-			    <c:when test= "${user.user == t.uid}">
+			    <c:when test= "${(user.user == t.uid) || user.admin}">
 					<button type="button" class="delTweet btn btn-outline-danger"><i class="fa fa-trash"></i></button>
 				</c:when>
 				 <c:otherwise>

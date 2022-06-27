@@ -52,7 +52,7 @@ public class ManageUsers {
 		return test;
 	}
 	
-	//Check if all the fields are filled correctly.
+	// Check if all the fields are filled correctly.
 	public boolean isComplete(User user) {
 	    return(hasValue(user.getUser()) &&
 	    	   hasValue(user.getMail()) &&
@@ -63,15 +63,15 @@ public class ManageUsers {
 		return((val != null) && (!val.equals("")));
 	}
 	
-	//Check min requirements for login completion.
+	// Check min requirements for login completion.
 	public boolean isLoginComplete(User user) {
 	    return(hasValue(user.getUser()) &&
 	    	   hasValue(user.getPwd()) );
 	}
 	
-	//Gets One user by username (PK).
+	// Gets One user by username (PK).
 	public User getUser(String name) {
-		String query = "Select usr, mail FROM users WHERE usr = ? ;";
+		String query = "Select usr, mail, admin FROM users WHERE usr = ? ;";
 		PreparedStatement statement = null;
 		ResultSet rs = null;
 		User user = null;
@@ -83,6 +83,7 @@ public class ManageUsers {
 				user = new User();
 				user.setUser(rs.getString("usr"));
 				user.setMail(rs.getString("mail"));
+				user.setAdmin(rs.getBoolean("admin"));
 			}
 			rs.close();
 			statement.close();
@@ -93,7 +94,7 @@ public class ManageUsers {
 		return user;
 	}
 	
-	//Return list of users.
+	// Return list of users.
 	public List<User> getUsers(List<String> names) {
 		
 		List<User> users = new ArrayList<User>();
@@ -106,7 +107,7 @@ public class ManageUsers {
 		return users;
 	}
 	
-	//Return list of users.
+	// Return list of users.
 		public List<User> getXUsers(int x) {
 			
 			List<User> users = new ArrayList<User>();
@@ -133,7 +134,7 @@ public class ManageUsers {
 			return users;
 		}
 	
-	//Test if the User Login is correct.
+	// Test if the User Login is correct.
 	public Boolean checkLogin(User user) {
 		
 		String query = "SELECT usr,mail from users where usr = ? AND pwd = ?";
@@ -191,6 +192,7 @@ public class ManageUsers {
 		String query = "INSERT INTO follows (uid,fid) VALUES (?,?)";
 		PreparedStatement statement = null;
 		try {
+			System.out.println("user1 "+uid+" user2 "+fid);
 			statement = db.prepareStatement(query);
 			statement.setString(1,uid);
 			statement.setString(2,fid);
@@ -220,6 +222,20 @@ public class ManageUsers {
 		}
 	}
 
-	
+	public void deleteUser(String uid) {
+		String query = "DELETE FROM users WHERE usr = ?;";
+		PreparedStatement statement = null;
+		try {
+			statement = db.prepareStatement(query);
+			statement.setString(1,uid);
+			statement.executeUpdate();
+			statement.close();
+			System.out.println("User Manager: User Deleted");
+		} catch (SQLIntegrityConstraintViolationException e) {
+			System.out.println(e.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

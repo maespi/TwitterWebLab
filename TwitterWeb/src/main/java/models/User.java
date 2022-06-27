@@ -10,6 +10,7 @@ public class User implements java.io.Serializable {
 	private String user = "";
 	private String pwd = "";
 	private String mail = "";
+	private boolean admin = false;
 	private int[] error = {0,0,0}; 
 	
 	/* Getters */
@@ -29,6 +30,10 @@ public class User implements java.io.Serializable {
 		return pwd;
 	}
 	
+	public boolean isAdmin() {
+		return admin;
+	}
+
 	/*Setters*/
 	public void setUser(String user){
 		this.user = user;
@@ -53,6 +58,10 @@ public class User implements java.io.Serializable {
 		}
 		*/
 		this.mail = mail;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 	
 	/* Logic Functions */

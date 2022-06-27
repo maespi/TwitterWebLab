@@ -35,6 +35,7 @@ public class GetOwnTimeline extends HttpServlet {
 		HttpSession session = request.getSession();
 		String target = request.getParameter("target");
 		User user = (User) session.getAttribute("user");
+		request.setAttribute("user",user);
 		User targetUser = new User();
 		ManageUsers userManager = new ManageUsers();
 		
