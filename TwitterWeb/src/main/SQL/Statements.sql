@@ -12,8 +12,7 @@ CREATE TABLE `users` (
   `mail` varchar(40) NOT NULL,
   `pwd` varchar(20) NOT NULL,
   `admin` boolean DEFAULT false,
-  PRIMARY KEY (`usr`),
-  UNIQUE KEY `mail` (`mail`)
+  PRIMARY KEY (`usr`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS `follows`;
@@ -22,10 +21,10 @@ CREATE TABLE `follows` (
   `fid` varchar(20) NOT NULL,
   PRIMARY KEY (`uid`,`fid`),
   KEY `fid_users_fk` (`fid`),
-  CONSTRAINT `fid_users_fk` FOREIGN KEY (`fid`) REFERENCES `users` (`usr`),
-  CONSTRAINT `uid_users_fk` FOREIGN KEY (`uid`) REFERENCES `users` (`usr`)
+  CONSTRAINT `fid_users_fk` FOREIGN KEY (`fid`) REFERENCES `users` (`usr`) ON DELETE CASCADE,
+  CONSTRAINT `uid_users_fk` FOREIGN KEY (`uid`) REFERENCES `users` (`usr`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `tweets`
@@ -41,17 +40,6 @@ CREATE TABLE `tweets` (
   PRIMARY KEY (`id`),
   KEY `tweets_users_fk` (`uid`),
   KEY `tweets_tweets_fk` (`pid`),
-  CONSTRAINT `tweets_tweets_fk` FOREIGN KEY (`pid`) REFERENCES `tweets` (`id`),
-  CONSTRAINT `tweets_users_fk` FOREIGN KEY (`uid`) REFERENCES `users` (`usr`)
+  CONSTRAINT `tweets_tweets_fk` FOREIGN KEY (`pid`) REFERENCES `tweets` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `tweets_users_fk` FOREIGN KEY (`uid`) REFERENCES `users` (`usr`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tweets`
---
-
-LOCK TABLES `tweets` WRITE;
-/*!40000 ALTER TABLE `tweets` DISABLE KEYS */;
-INSERT INTO `tweets` VALUES (77,1,'2021-06-02 20:15:49','hola',NULL);
-/*!40000 ALTER TABLE `tweets` ENABLE KEYS */;
-UNLOCK TABLES;

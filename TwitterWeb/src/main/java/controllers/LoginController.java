@@ -35,7 +35,8 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		HttpSession session = request.getSession(true);
 		System.out.print("LoginController: ");
 		User user = new User();
 		ManageUsers manager = new ManageUsers();
@@ -50,7 +51,6 @@ public class LoginController extends HttpServlet {
 			    if (manager.checkLogin(user)) {
 		    		System.out.println("Login OK, forwarding to ViewOwnTimeline. ");
 		    		user = manager.getUser(user.getUser());
-	    			HttpSession session = request.getSession();
 	    			session.setAttribute("user",user);
 			    	view = "ViewOwnTimeline.jsp";
 					request.setAttribute("error", false);

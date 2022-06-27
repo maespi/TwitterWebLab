@@ -4,5 +4,8 @@
 <script type="text/javascript">
 $('#navigation').load('MenuController');
 </script>
-
-<p id="nav" class="mt-5"> Logout done! </p>
+<div class="d-flex flex-column justify-content-md-center align-items-center vh-100">
+<div class="alert alert-success " role="alert">
+		  	<div> Logout done! </div>
+</div>
+</div>

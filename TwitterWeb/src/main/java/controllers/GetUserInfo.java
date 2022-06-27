@@ -36,7 +36,9 @@ public class GetUserInfo extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		User target = (User) session.getAttribute("target");
 		ManageUsers userManager = new ManageUsers();
-		boolean anon = (boolean) session.getAttribute("anon");
+		boolean anon = false;
+		if(session.getAttribute("anon") != null)
+			 anon = (boolean) session.getAttribute("anon");
 		session.setAttribute("target",null);
 		
 		//Get user in case its passed as an argument.

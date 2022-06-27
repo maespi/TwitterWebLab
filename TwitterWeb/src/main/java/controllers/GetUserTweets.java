@@ -39,7 +39,7 @@ public class GetUserTweets extends HttpServlet {
 		HttpSession session = request.getSession();
 		List<Tweet> tweets = Collections.emptyList();
 		User user = (User) session.getAttribute("user");
-		boolean anon = (boolean) session.getAttribute("anon");
+		boolean anon = Boolean.parseBoolean((String) session.getAttribute("anon"));
 		User target = (User) session.getAttribute("target");
 		ManageTweets tweetManager = new ManageTweets();
 		

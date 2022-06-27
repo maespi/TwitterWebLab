@@ -93,6 +93,7 @@ $(document).ready(function(){
 		});
 		event.preventDefault();
 	});
+	
 	//TODO: DELETE
 	/* Show user tweets */
 	$(document).on("click",".showTweets",function(event){

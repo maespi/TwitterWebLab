@@ -10,4 +10,5 @@
 
 <div id="stack" class="w3-bar-block w3-red w3-hide w3-hide-large w3-hide-medium">
 	<a class="myTime w3-bar-item w3-button" id="GetOwnTimeline" href=#> Timeline </a>
+	<a class="users_anon w3-bar-item w3-button " id="Users" href=#> Explore Users </a>
 </div>
