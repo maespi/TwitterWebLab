@@ -39,7 +39,7 @@ public class GetOwnTimeline extends HttpServlet {
 		User targetUser = new User();
 		ManageUsers userManager = new ManageUsers();
 		
-		boolean own = Boolean.parseBoolean(request.getParameter("own"));
+		boolean own = Boolean.parseBoolean((String) request.getParameter("own"));
 		
 		if(own)
 			target = user.getUser();

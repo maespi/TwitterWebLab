@@ -94,6 +94,32 @@ public class ManageUsers {
 		return user;
 	}
 	
+	// Gets One user by username (PK).
+		public User getFullUser(String name) {
+			String query = "Select usr, mail, pwd, admin FROM users WHERE usr = ? ;";
+			PreparedStatement statement = null;
+			ResultSet rs = null;
+			User user = null;
+			try {
+				statement = db.prepareStatement(query);
+				statement.setString(1,name);
+				rs = statement.executeQuery();
+				if (rs.next()) {
+					user = new User();
+					user.setUser(rs.getString("usr"));
+					user.setMail(rs.getString("mail"));
+					user.setPwd(rs.getString("pwd"));
+					user.setAdmin(rs.getBoolean("admin"));
+				}
+				rs.close();
+				statement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return user;
+		}
+	
 	// Return list of users.
 	public List<User> getUsers(List<String> names) {
 		
@@ -220,7 +246,26 @@ public class ManageUsers {
 			e.printStackTrace();
 		}
 	}
-
+	
+	// UnFollow a user.
+	public void UpdateUser(User user) {
+		String query = "UPDATE users SET mail = ?, pwd = ? where usr = ?";
+		PreparedStatement statement = null;
+		try {
+			statement = db.prepareStatement(query);
+			statement.setString(1,user.getMail());
+			statement.setString(2,user.getPwd());
+			statement.setString(3,user.getUser());
+			statement.executeUpdate();
+			statement.close();
+		} catch (SQLIntegrityConstraintViolationException e) {
+			System.out.println(e.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//Deletes a User
 	public void deleteUser(String uid) {
 		String query = "DELETE FROM users WHERE usr = ?;";
 		PreparedStatement statement = null;

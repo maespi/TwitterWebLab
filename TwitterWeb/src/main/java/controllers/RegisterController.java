@@ -63,10 +63,20 @@ public class RegisterController extends HttpServlet {
 			   }
 		   }
 		   else {
-			   System.out.println(" Forwarding to ViewRegisterForm");
-			   request.setAttribute("user",user);
-			   view = "ViewRegisterForm.jsp";
-			   request.setAttribute("error", false);
+			   	view = "ViewRegisterForm.jsp";
+			   	request.setAttribute("user",user);
+				if(user.getError()[1]==1) {
+					System.out.println("Error, Forwarding to ViewRegisterForm.");
+					request.setAttribute("error", true);
+					request.setAttribute("error_msg", "Incorrect Mail.");
+				}else if(user.getError()[2]== 1) {
+					System.out.println("Error, Forwarding to ViewRegisterForm.");
+					request.setAttribute("error", true);
+					request.setAttribute("error_msg", "Incorrect Password.");
+				}else {
+					System.out.println(" Forwarding to ViewRegisterForm.");
+					request.setAttribute("error", false);
+				}
 		   }
 		  
 		   RequestDispatcher dispatcher = request.getRequestDispatcher(view);

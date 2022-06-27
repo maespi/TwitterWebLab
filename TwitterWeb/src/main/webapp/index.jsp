@@ -32,8 +32,8 @@ $(document).ready(function(){
 	//Show Personal Timeline
 	$(document).on("click",".myTime",function(event){
 		var tweet = $(this).parent();
-		$.post( "GetOwnTimeline", { own: "true" } , function(event) {
-			$("#content").load("ViewOwnTimeline.jsp");	
+		$.post( "GetOwnTimeline", {own:"true"}).done(function(event){
+			$("#content").html(event);
 		});
 		event.preventDefault();
 	});
@@ -96,13 +96,13 @@ $(document).ready(function(){
 	
 	//TODO: DELETE
 	/* Show user tweets */
-	$(document).on("click",".showTweets",function(event){
+	/*$(document).on("click",".showTweets",function(event){
 		var user = $(this).parent().parent().parent().find('h4').text();
 		$.post( "GetUserTweets", { target: user }, function(event) {
 			$('#content').load('GetUserTweets');
 		});
 		event.preventDefault();
-	});
+	});*/
 	
 	/* UnFollow user */
 	$(document).on("click",".unFollowUser",function(event) {

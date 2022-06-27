@@ -13,6 +13,25 @@ public class User implements java.io.Serializable {
 	private boolean admin = false;
 	private int[] error = {0,0,0}; 
 	
+	public User() {
+		super();
+	}
+	
+	public User(String user, String pwd, String mail, boolean admin) {
+		super();
+		this.user = user;
+		this.pwd = pwd;
+		this.mail = mail;
+		this.admin = admin;
+	}
+
+	public User(String user, String pwd, String mail) {
+		super();
+		this.user = user;
+		this.pwd = pwd;
+		this.mail = mail;
+	}
+
 	/* Getters */
 	public String getUser(){
 		return user;
@@ -44,20 +63,17 @@ public class User implements java.io.Serializable {
 	}
 	
 	public void setMail(String mail) {
-		//TODO: Descomentar per a personalitzar l'entrada de mail
-		/**
-		String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+		String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]{1,15}@[a-zA-Z0-9.-]+[.]+[a-zA-Z0-9]+$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(mail);
 		if (matcher.matches()) {
 			this.mail = mail;
-			System.out.println(mail);
 		} else {
 			error[1]=1;
 			System.out.println("Mail Error: "+mail);
+			this.mail = "";
 		}
-		*/
-		this.mail = mail;
+		
 	}
 
 	public void setAdmin(boolean admin) {
@@ -68,7 +84,7 @@ public class User implements java.io.Serializable {
 	public boolean isFull() {
 	    return(hasValue(getUser()) &&
 	           hasValue(getPwd()) &&
-	           hasValue(getMail()) );
+	           hasValue(getMail()));
 	}
 	
 	/* Logic Functions */
