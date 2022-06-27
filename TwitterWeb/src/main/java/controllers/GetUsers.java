@@ -43,6 +43,7 @@ public class GetUsers extends HttpServlet {
 		List<Pair> pairUsers = new ArrayList<>();
 		List<User> users = Collections.emptyList();
 		User user = (User) session.getAttribute("user");
+		boolean anon = (boolean) session.getAttribute("anon");
 		
 		//We Check to see if target is created, in that case we exchange the data to load the target tweets.
 		if (user != null) {
@@ -58,7 +59,20 @@ public class GetUsers extends HttpServlet {
 				pairUsers.add(p);
 			}
 			userManager.finalize();	
+		}else if(anon) {
+			ManageUsers userManager = new ManageUsers();
+			users = userManager.getXUsers(10);
+			//We get each user and whether or not they follow the current main user
+			for(int i=0;i<users.size();i++) {
+				Pair p = new Pair();
+				p.setFollow(false);
+				p.setUser(users.get(i));
+				pairUsers.add(p);
+			}
+			userManager.finalize();
+			request.setAttribute("anon",true);
 		}
+		
 		//Those tweets are stored in a temp storage (request) and so is target to use it in the view.
 		request.setAttribute("user",user);
 		request.setAttribute("users",pairUsers);

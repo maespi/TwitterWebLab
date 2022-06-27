@@ -6,7 +6,7 @@
 <form class="row gy-1 gx-3 align-items-center rounded border border-secondary mt-4 p-md-3" action="GetOwnTimeline" method="POST">
 	<p>      
     <label class="secondary-color"><b> User id </b></label>
-    <input class="form-control" type="text" name="target" value="${target.user}" required></p>
+    <input class="form-control" type="text" name="target" value="" required></p>
     <p>
     <input class="btn btn-primary bckg-primary-color" type="submit" name="sumbit" value="Search"></p>
 </form>

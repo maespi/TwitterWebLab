@@ -9,6 +9,7 @@
 		 <jsp:param name="target_follow" value="${p.follow}" />
 		 <jsp:param name="user" value="${user.user}" />
 		 <jsp:param name="user_admin" value="${user.admin}" />
+		 <jsp:param name="anon" value="${anon}" />
 	</jsp:include>
  </div>
 </c:forEach>

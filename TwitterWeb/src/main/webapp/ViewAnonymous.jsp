@@ -5,8 +5,6 @@
  <script type="text/javascript">
  $(document).ready(function(){
 	$('#navigation').load('ViewMenuLoggedAnonymous.jsp');
-	//$('#rcolumn').load('SearchUser');
-	//$('#lcolumn').load('');
 	$('#iterator').load('GetUserTweets');
  });
  </script>

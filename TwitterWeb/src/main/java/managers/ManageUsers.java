@@ -192,7 +192,6 @@ public class ManageUsers {
 		String query = "INSERT INTO follows (uid,fid) VALUES (?,?)";
 		PreparedStatement statement = null;
 		try {
-			System.out.println("user1 "+uid+" user2 "+fid);
 			statement = db.prepareStatement(query);
 			statement.setString(1,uid);
 			statement.setString(2,fid);

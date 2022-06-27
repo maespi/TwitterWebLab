@@ -28,6 +28,7 @@ $(document).ready(function(){
 		$('#content').load($(this).attr('id'));
 		event.preventDefault();
 	});
+	
 	//Show Personal Timeline
 	$(document).on("click",".myTime",function(event){
 		var tweet = $(this).parent();
@@ -40,6 +41,12 @@ $(document).ready(function(){
 	/*Explore Users*/
 	$(document).on("click",".users", function(event) {
 		$('#lcolumn').load('GetUserInfo');
+		$('#content').load('GetUsers');
+		event.preventDefault();
+	});
+	
+	/*Explore Users Anonimous*/
+	$(document).on("click",".users_anon", function(event) {
 		$('#content').load('GetUsers');
 		event.preventDefault();
 	});
@@ -86,6 +93,16 @@ $(document).ready(function(){
 		});
 		event.preventDefault();
 	});
+	//TODO: DELETE
+	/* Show user tweets */
+	$(document).on("click",".showTweets",function(event){
+		var user = $(this).parent().parent().parent().find('h4').text();
+		$.post( "GetUserTweets", { target: user }, function(event) {
+			$('#content').load('GetUserTweets');
+		});
+		event.preventDefault();
+	});
+	
 	/* UnFollow user */
 	$(document).on("click",".unFollowUser",function(event) {
 		var user = $(this).parent().parent().parent().find('h4').text();
@@ -93,7 +110,6 @@ $(document).ready(function(){
 			$("#lcolumn").load("GetUserInfo");
 			$('#content').load('GetUsers');
 		});
-		console.log($(this).parent().parent().parent().find('h4').text())
 		event.preventDefault();
 	});
 });

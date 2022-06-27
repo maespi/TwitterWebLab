@@ -39,6 +39,12 @@
 		    <c:when test="${follow || param.target_follow}">
 		        <button type="button" class="unFollowUser btn btn-danger mb-3 "><i class="fa fa-user-plus"></i>&nbsp;Unfollow</button> 
 		    </c:when>
+		    <c:when test="${param.anon}">
+		    	<form action="GetUserTweets" method="POST">
+		    		<input type="hidden" name="target" value="${param.target_user}" />
+		    		<button type="submit" class="btn btn-danger mb-3 "><i class="fa fa-user-plus"></i>&nbsp;Show Tweets</button> 
+		    	</form>
+		    </c:when>
 		    <c:otherwise>
 		        <button type="button" class="followUser btn btn-success mb-3 "><i class="fa-solid fa-user-gear"></i>&nbsp;Follow</button> 
 		    </c:otherwise>

@@ -36,8 +36,11 @@ public class GetUserInfo extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		User target = (User) session.getAttribute("target");
 		ManageUsers userManager = new ManageUsers();
+		boolean anon = (boolean) session.getAttribute("anon");
+		session.setAttribute("target",null);
+		
 		//Get user in case its passed as an argument.
-		if (session != null || user != null) {
+		if (user != null) {
 			user = userManager.getUser(user.getUser());
 			request.setAttribute("user",user);
 			
@@ -47,6 +50,11 @@ public class GetUserInfo extends HttpServlet {
 				request.setAttribute("follow",false);
 				if(userManager.ifFollowedUser(user.getUser(), target.getUser()))
 					request.setAttribute("follow",true);
+			}
+		}else if(anon) {
+			if(target != null) {
+				request.setAttribute("target",target);
+				request.setAttribute("follow",false);
 			}
 		}
 		

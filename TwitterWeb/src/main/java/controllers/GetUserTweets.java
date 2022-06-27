@@ -52,7 +52,11 @@ public class GetUserTweets extends HttpServlet {
 				tweets = tweetManager.getFollowingAllTweets(user.getUser());
 			}	
 		}else if(anon) {
-			tweets = tweetManager.getTweets(20);
+			String nTarget = (String) request.getParameter("target");
+			if(nTarget != null)
+				tweets = tweetManager.getAllUserTweets(nTarget);
+			else
+				tweets = tweetManager.getTweets(20);
 		}
 			
 		//Those tweets are stored in a temp storage (request) and so is target to use it in the view.
