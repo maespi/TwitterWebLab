@@ -43,7 +43,9 @@ public class GetUsers extends HttpServlet {
 		List<Pair> pairUsers = new ArrayList<>();
 		List<User> users = Collections.emptyList();
 		User user = (User) session.getAttribute("user");
-		boolean anon = Boolean.parseBoolean((String) session.getAttribute("anon"));
+		boolean anon = false;
+		if(session.getAttribute("anon") != null)
+			anon = ((boolean) session.getAttribute("anon"));
 		
 		//We Check to see if target is created, in that case we exchange the data to load the target tweets.
 		if (user != null) {

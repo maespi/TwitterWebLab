@@ -51,8 +51,14 @@ public class GetOwnTimeline extends HttpServlet {
 			if(targetUser != null) {
 				session.setAttribute("target",targetUser);
 			}else{
-				request.setAttribute("error", true);
-				request.setAttribute("error_msg", "User does not exist.");
+				targetUser = userManager.getSimilarUser(target);
+				//In case similar target exists, get first similar user
+				if(targetUser != null) {
+					session.setAttribute("target",targetUser);
+				}else{
+					request.setAttribute("error", true);
+					request.setAttribute("error_msg", "User does not exist.");
+				}	
 			}
 		}else
 			session.setAttribute("target", null);

@@ -281,5 +281,28 @@ public class ManageUsers {
 			e.printStackTrace();
 		}
 	}
+	public User getSimilarUser(String name) {
+		String query = "Select usr, mail, admin FROM users WHERE usr LIKE ? LIMIT 1 ;";
+		PreparedStatement statement = null;
+		ResultSet rs = null;
+		User user = null;
+		try {
+			statement = db.prepareStatement(query);
+			statement.setString(1,name+"%");
+			rs = statement.executeQuery();
+			if (rs.next()) {
+				user = new User();
+				user.setUser(rs.getString("usr"));
+				user.setMail(rs.getString("mail"));
+				user.setAdmin(rs.getBoolean("admin"));
+			}
+			rs.close();
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+	}	
 
 }

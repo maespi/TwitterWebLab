@@ -23,7 +23,7 @@
     <input class="form-control" type="text" name="pwd" value="${tmp.pwd}" required></p>
     <p>
     <input type="hidden" name="edit" value="true" />
-    <input class="btn btn-primary bckg-primary-color" type="submit" name="sumbit" value="Search"></p>
+    <input class="btn btn-primary bckg-primary-color" type="submit" name="sumbit" value="Save"></p>
 </form>
 </div>
 
